@@ -53,10 +53,9 @@ class MySearchField extends StatelessWidget {
                 ),
               ],
             ),
-            child: Icon(
-              Icons.menu,
-              size: 30,
-              color: Colors.white,
+            child: Image.asset(
+              'assets/icons/settings-sliders.png',
+              height: 30,
             ),
           ),
         ],
