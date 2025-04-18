@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/widgets/my_button.dart';
+import 'package:food_app/widgets/payment_card.dart';
 
-class OrderPage extends StatelessWidget {
+class OrderPage extends StatefulWidget {
   final double price;
 
   const OrderPage({super.key, required this.price});
 
   @override
+  State<OrderPage> createState() => _OrderPageState();
+}
+
+class _OrderPageState extends State<OrderPage> {
+  String selectedCard = 'card1';
+  bool agreeTerms = false;
+
+  @override
   Widget build(BuildContext context) {
     double tax = 0.3;
     double deliveryCharges = 1.5;
-    double total = price + tax + deliveryCharges;
+    double total = widget.price + tax + deliveryCharges;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,15 +33,17 @@ class OrderPage extends StatelessWidget {
           horizontal: 16.0,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20),
-            Text(
-              'Order Summary',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.5,
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Order Summary',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
+                ),
               ),
             ),
             Padding(
@@ -41,95 +53,18 @@ class OrderPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Order',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        '\$${price.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Taxes',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        '\$${tax.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Delivery Charges',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        '\$${deliveryCharges.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
+                  _buildSummaryRow('Order', widget.price),
+                  _buildSummaryRow('Taxes', tax),
+                  _buildSummaryRow(
+                    'Delivery Charges',
+                    deliveryCharges,
                   ),
                   SizedBox(height: 10),
                   Divider(thickness: 1),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '\$${total.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
+                  _buildSummaryRow(
+                    'Total:',
+                    total,
+                    isBold: true,
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -158,16 +93,146 @@ class OrderPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30),
-            Text(
-              'Payment Method',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Payment Method',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            PaymentCard(
+              imagePath:
+                  'assets/images/mastercard_logo.png',
+              value: 'card1',
+              groupValue: selectedCard,
+              onChanged: (val) {
+                setState(() {
+                  selectedCard = val!;
+                });
+              },
+            ),
+            SizedBox(height: 10),
+            PaymentCard(
+              imagePath: 'assets/images/image 13.png',
+              value: 'card2',
+              groupValue: selectedCard,
+              onChanged: (val) {
+                setState(() {
+                  selectedCard = val!;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                Checkbox(
+                  value: agreeTerms,
+                  onChanged: (val) {
+                    setState(() {
+                      agreeTerms = val!;
+                    });
+                  },
+                  fillColor:
+                      WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        return states.contains(
+                              WidgetState.selected,
+                            )
+                            ? Colors.red
+                            : Colors.white;
+                      }),
+                  checkColor: Colors.white,
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Save card details for future orders',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20.0,
+                bottom: 20,
+                left: 20,
+                right: 10,
+              ),
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Total price:',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        '\$${total.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  MyButton(
+                    text: 'Pay now',
+                    onTap: () {},
+                    color: Colors.black,
+                  ),
+                ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSummaryRow(
+    String label,
+    double value, {
+    bool isBold = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight:
+                  isBold
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+            ),
+          ),
+          Text(
+            '\$${value.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }
