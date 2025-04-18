@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: Duration(microseconds: 200),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.white,
         items: [
           Image.asset(
             'assets/icons/home.png',

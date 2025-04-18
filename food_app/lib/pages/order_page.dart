@@ -191,7 +191,67 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                   MyButton(
                     text: 'Pay now',
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            insetPadding:
+                                EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                ),
+                            contentPadding: EdgeInsets.all(
+                              20,
+                            ),
+                            content: SizedBox(
+                              width: 250,
+                              child: Column(
+                                mainAxisSize:
+                                    MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: Colors.red,
+                                    size: 80,
+                                  ),
+                                  SizedBox(height: 30),
+                                  Text(
+                                    'Success!',
+                                    textAlign:
+                                        TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 34,
+                                      fontWeight:
+                                          FontWeight.bold,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Your payment was successful.A receipt for this purchase has been sent to your email.',
+                                    textAlign:
+                                        TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14,
+
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: 40),
+                                  MyButton(
+                                    text: 'Go Back',
+                                    onTap:
+                                        () => Navigator.pop(
+                                          context,
+                                        ),
+                                    color: Colors.red,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                     color: Colors.black,
                   ),
                 ],
