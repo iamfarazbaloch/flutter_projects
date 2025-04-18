@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/model/prduct.dart';
+import 'package:food_app/pages/order_page.dart';
+import 'package:food_app/widgets/my_button.dart';
 
 class DetailPage extends StatefulWidget {
   final Products products;
@@ -74,7 +76,7 @@ class _DetailPageState extends State<DetailPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 230),
+            const SizedBox(height: 210),
 
             // Spiciness + Quantity Row
             Row(
@@ -155,6 +157,36 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     SizedBox(height: 40),
                   ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+              children: [
+                MyButton(
+                  text:
+                      '\$${(widget.products.price * quantity).toStringAsFixed(2)}',
+                  color: Colors.red,
+                  onTap: () {},
+                ),
+                MyButton(
+                  text: 'Order Now',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => OrderPage(
+                              price:
+                                  widget.products.price *
+                                  quantity,
+                            ),
+                      ),
+                    );
+                  },
+                  color: Colors.black,
                 ),
               ],
             ),
