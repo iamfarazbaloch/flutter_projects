@@ -1,7 +1,9 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/model/shop.dart';
 import 'package:food_app/pages/detail_page.dart';
+import 'package:food_app/widgets/custom_nav_bar.dart'
+    show CustomNavBar;
+
 import 'package:food_app/widgets/my_search_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+
   final List category = [
     'All',
     'Combos',
@@ -21,33 +25,21 @@ class _HomePageState extends State<HomePage> {
     'Classic',
   ];
 
+  void _onNavTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final productList = context.watch<Shop>().product;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: CurvedNavigationBar(
-        animationDuration: Duration(microseconds: 200),
-        backgroundColor: Colors.white,
-        items: [
-          Image.asset(
-            'assets/icons/home.png',
-            color: Colors.black,
-          ),
-          Image.asset(
-            'assets/icons/user.png',
-            color: Colors.black,
-          ),
-          Image.asset(
-            'assets/icons/comment.png',
-            color: Colors.black,
-          ),
-          Image.asset(
-            'assets/icons/heart.png',
-            color: Colors.black,
-          ),
-        ],
+      bottomNavigationBar: CustomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: _onNavTap,
       ),
       body: SafeArea(
         child: Padding(
@@ -142,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisCount: 2,
                         mainAxisSpacing: 15,
                         crossAxisSpacing: 15,
-                        childAspectRatio: 0.7,
+                        childAspectRatio: 0.75,
                       ),
                   itemBuilder: (context, index) {
                     final product = productList[index];
@@ -168,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                             BoxShadow(
                               color: Colors.grey.withAlpha(
                                 51,
-                              ), // ~20% opacity
+                              ),
                               blurRadius: 5,
                               offset: const Offset(0, 3),
                             ),

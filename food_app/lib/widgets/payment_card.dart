@@ -23,7 +23,7 @@ class PaymentCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         width: double.infinity,
-        height: 120,
+        height: 100,
         decoration: BoxDecoration(
           color: isSelected ? Colors.black : Colors.white,
           borderRadius: BorderRadius.circular(20),
