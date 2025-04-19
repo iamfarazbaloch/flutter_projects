@@ -17,7 +17,6 @@ class _HomePageState extends State<HomePage> {
     final selectedCategory =
         groceryCategories[selectedCategoryIndex];
 
-    // Filter groceries based on selected category
     final filteredGroceries =
         selectedCategory == 'ALL'
             ? groceryItems
@@ -50,14 +49,14 @@ class _HomePageState extends State<HomePage> {
                           text: 'Welcome\n',
                           style: TextStyle(
                             fontSize: 28,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             color: Colors.grey,
                           ),
                         ),
                         TextSpan(
                           text: 'Muhammad Faraz',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 12),
 
-            // Category list with indicator
+            // Category list
             SizedBox(
               height: 60,
               child: ListView.builder(
@@ -146,7 +145,7 @@ class _HomePageState extends State<HomePage> {
 
             // Horizontal list of grocery items
             SizedBox(
-              height: 300,
+              height: 280,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(
@@ -165,29 +164,173 @@ class _HomePageState extends State<HomePage> {
                       ),
                       color: Colors.grey.shade100,
                     ),
-
                     child: Column(
                       crossAxisAlignment:
                           CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 14),
-                        Image.asset(item.image),
+                        const SizedBox(height: 14),
+                        Image.asset(
+                          item.image,
+                          height: 120,
+                        ),
                         const SizedBox(height: 10),
                         Text(
                           item.name,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                            fontSize: 20,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment
+                                        .start,
+                                children: [
+                                  Text(
+                                    item.category,
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                      fontWeight:
+                                          FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    "\$${item.price.toStringAsFixed(2)}",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.green,
+                                      fontWeight:
+                                          FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(
+                                10,
+                              ),
+                              decoration: const BoxDecoration(
+                                color: Colors.orangeAccent,
+                                borderRadius:
+                                    BorderRadius.only(
+                                      topLeft:
+                                          Radius.circular(
+                                            10,
+                                          ),
+                                      bottomLeft:
+                                          Radius.circular(
+                                            10,
+                                          ),
+                                    ),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: const Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Recent shop title
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Recent Shop',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Recent items - horizontal list
+            SizedBox(
+              height: 130,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                itemCount: filteredGroceries.length,
+                itemBuilder: (context, index) {
+                  final item = filteredGroceries[index];
+                  return Container(
+                    width: 300,
+                    margin: const EdgeInsets.only(
+                      right: 16,
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(item.image, height: 60),
+                        const SizedBox(
+                          height: 8,
+                          width: 12,
+                        ),
+                        Column(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                              overflow:
+                                  TextOverflow.ellipsis,
+                            ),
+
+                            Text(
+                              item.category,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                              maxLines: 1,
+                              overflow:
+                                  TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                        Spacer(),
                         Text(
                           "\$${item.price.toStringAsFixed(2)}",
                           style: const TextStyle(
-                            fontSize: 13,
-                            color: Colors.black54,
+                            fontSize: 22,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
