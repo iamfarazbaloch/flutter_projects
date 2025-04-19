@@ -129,7 +129,7 @@ List<Grocery> groceryItems = [
   ),
   Grocery(
     category: 'Dairy',
-    image: 'assets/images/paneer.png',
+    image: 'assets/images/paneer.jpg',
     isRecent: false,
     description: description,
     name: 'Paneer',
