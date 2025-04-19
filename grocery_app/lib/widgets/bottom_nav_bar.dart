@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app/pages/cart_page.dart';
 import 'package:grocery_app/pages/home_page.dart';
+import 'package:grocery_app/pages/mail_box_page.dart';
+import 'package:grocery_app/pages/profile_page.dart';
+import 'package:grocery_app/pages/scan_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -15,9 +18,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> pages = const [
     HomePage(),
     CartPage(),
-    Center(child: Text("Scan Page")),
-    Center(child: Text("Mail Page")),
-    Center(child: Text("Profile Page")),
+    ScanPage(),
+    MailBoxPage(),
+    ProfilePage(),
   ];
 
   @override
