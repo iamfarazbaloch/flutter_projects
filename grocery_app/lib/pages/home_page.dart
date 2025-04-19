@@ -46,20 +46,12 @@ class _HomePageState extends State<HomePage> {
             )
             .toList();
 
-    final filteredRecentItems =
-        groceryItems
-            .where(
-              (item) => item.name.toLowerCase().contains(
-                searchQuery.toLowerCase(),
-              ),
-            )
-            .toList();
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Greeting Row
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -98,12 +90,12 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+
             const SizedBox(height: 12),
 
-            // Search field
+            // Search Field
             MySearchField(
-              controller:
-                  searchController, // Use the controller here
+              controller: searchController,
               onChanged: (value) {
                 setState(() {
                   searchQuery = value;
@@ -113,7 +105,7 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 12),
 
-            // Category list
+            // Category Tabs
             SizedBox(
               height: 60,
               child: ListView.builder(
@@ -175,7 +167,7 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 16),
 
-            // Filtered category items
+            // Filtered Items (Based on Search & Category)
             filteredCategoryGroceries.isEmpty
                 ? const Center(
                   child: Text('Items not found'),
@@ -303,7 +295,7 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 20),
 
-            // Recent shop title
+            // Recent Shop Title
             const Padding(
               padding: EdgeInsets.only(left: 20.0),
               child: Text(
@@ -318,94 +310,86 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 12),
 
-            // Filtered recent items
-            filteredRecentItems.isEmpty
-                ? const Center(
-                  child: Text('Items not found'),
-                )
-                : SizedBox(
-                  height: 130,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
+            // Recent Shop (No filter here!)
+            SizedBox(
+              height: 130,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                itemCount: groceryItems.length,
+                itemBuilder: (context, index) {
+                  final item = groceryItems[index];
+                  return Container(
+                    width: 350,
+                    margin: const EdgeInsets.only(
+                      right: 16,
                     ),
-                    itemCount: filteredRecentItems.length,
-                    itemBuilder: (context, index) {
-                      final item =
-                          filteredRecentItems[index];
-                      return Container(
-                        width: 350,
-                        margin: const EdgeInsets.only(
-                          right: 16,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.circular(10),
+                          ),
+                          child: Image.asset(
+                            item.image,
+                            height: 60,
+                          ),
                         ),
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius:
-                              BorderRadius.circular(10),
-                        ),
-                        child: Row(
+                        const SizedBox(width: 12),
+                        Column(
+                          mainAxisAlignment:
+                              MainAxisAlignment.center,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.circular(
-                                      10,
-                                    ),
-                              ),
-                              child: Image.asset(
-                                item.image,
-                                height: 60,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.name,
-                                  style: const TextStyle(
-                                    fontWeight:
-                                        FontWeight.bold,
-                                  ),
-                                  maxLines: 1,
-                                  overflow:
-                                      TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  item.category,
-                                  style: const TextStyle(
-                                    fontWeight:
-                                        FontWeight.bold,
-                                    color: Colors.grey,
-                                  ),
-                                  maxLines: 1,
-                                  overflow:
-                                      TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                            Spacer(),
                             Text(
-                              "\$${item.price.toStringAsFixed(2)}",
+                              item.name,
                               style: const TextStyle(
-                                fontSize: 22,
-                                color: Colors.green,
                                 fontWeight: FontWeight.bold,
                               ),
+                              maxLines: 1,
+                              overflow:
+                                  TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              item.category,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                              maxLines: 1,
+                              overflow:
+                                  TextOverflow.ellipsis,
                             ),
                           ],
                         ),
-                      );
-                    },
-                  ),
-                ),
+                        const Spacer(),
+                        Text(
+                          "\$${item.price.toStringAsFixed(2)}",
+                          style: const TextStyle(
+                            fontSize: 22,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

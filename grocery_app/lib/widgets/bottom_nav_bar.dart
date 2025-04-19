@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app/pages/cart_page.dart';
 import 'package:grocery_app/pages/home_page.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -13,7 +14,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List<Widget> pages = const [
     HomePage(),
-    Center(child: Text("Chart Page")),
+    CartPage(),
     Center(child: Text("Scan Page")),
     Center(child: Text("Mail Page")),
     Center(child: Text("Profile Page")),
