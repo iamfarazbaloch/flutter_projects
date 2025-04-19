@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app/model/product.dart';
 import 'package:grocery_app/widgets/my_search_field.dart';
+import 'package:grocery_app/pages/detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -51,7 +52,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Greeting Row
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -90,10 +90,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
             const SizedBox(height: 12),
-
-            // Search Field
             MySearchField(
               controller: searchController,
               onChanged: (value) {
@@ -102,10 +99,7 @@ class _HomePageState extends State<HomePage> {
                 });
               },
             ),
-
             const SizedBox(height: 12),
-
-            // Category Tabs
             SizedBox(
               height: 60,
               child: ListView.builder(
@@ -164,10 +158,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-
             const SizedBox(height: 16),
-
-            // Filtered Items (Based on Search & Category)
             filteredCategoryGroceries.isEmpty
                 ? const Center(
                   child: Text('Items not found'),
@@ -184,118 +175,124 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final item =
                           filteredCategoryGroceries[index];
-                      return Container(
-                        width: 200,
-                        margin: const EdgeInsets.only(
-                          left: 16,
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(8),
-                          color: Colors.grey.shade100,
-                        ),
-                        child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 14),
-                            Image.asset(
-                              item.image,
-                              height: 120,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (_) => DetailPage(
+                                    product: item,
+                                  ),
                             ),
-                            const SizedBox(height: 10),
-                            Text(
-                              item.name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
+                          );
+                        },
+                        child: Container(
+                          width: 200,
+                          margin: const EdgeInsets.only(
+                            left: 16,
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(8),
+                            color: Colors.grey.shade100,
+                          ),
+                          child: Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 14),
+                              Image.asset(
+                                item.image,
+                                height: 120,
                               ),
-                              maxLines: 1,
-                              overflow:
-                                  TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment
-                                            .start,
-                                    children: [
-                                      Text(
-                                        item.category,
-                                        style:
-                                            const TextStyle(
-                                              color:
-                                                  Colors
-                                                      .grey,
-                                              fontSize: 15,
-                                              fontWeight:
-                                                  FontWeight
-                                                      .bold,
-                                            ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "\$${item.price.toStringAsFixed(2)}",
-                                        style:
-                                            const TextStyle(
-                                              fontSize: 18,
-                                              color:
-                                                  Colors
-                                                      .green,
-                                              fontWeight:
-                                                  FontWeight
-                                                      .bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
+                              const SizedBox(height: 10),
+                              Text(
+                                item.name,
+                                style: const TextStyle(
+                                  fontWeight:
+                                      FontWeight.bold,
+                                  fontSize: 20,
                                 ),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.all(
-                                        10,
-                                      ),
-                                  decoration: const BoxDecoration(
-                                    color:
-                                        Colors.orangeAccent,
-                                    borderRadius:
-                                        BorderRadius.only(
-                                          topLeft:
-                                              Radius.circular(
-                                                10,
-                                              ),
-                                          bottomLeft:
-                                              Radius.circular(
-                                                10,
-                                              ),
+                                maxLines: 1,
+                                overflow:
+                                    TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment
+                                              .start,
+                                      children: [
+                                        Text(
+                                          item.category,
+                                          style: const TextStyle(
+                                            color:
+                                                Colors.grey,
+                                            fontSize: 15,
+                                            fontWeight:
+                                                FontWeight
+                                                    .bold,
+                                          ),
                                         ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "\$${item.price.toStringAsFixed(2)}",
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color:
+                                                Colors
+                                                    .green,
+                                            fontWeight:
+                                                FontWeight
+                                                    .bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: GestureDetector(
-                                    onTap: () {},
+                                  Container(
+                                    padding:
+                                        const EdgeInsets.all(
+                                          10,
+                                        ),
+                                    decoration: const BoxDecoration(
+                                      color:
+                                          Colors
+                                              .orangeAccent,
+                                      borderRadius:
+                                          BorderRadius.only(
+                                            topLeft:
+                                                Radius.circular(
+                                                  10,
+                                                ),
+                                            bottomLeft:
+                                                Radius.circular(
+                                                  10,
+                                                ),
+                                          ),
+                                    ),
                                     child: const Icon(
                                       Icons.shopping_cart,
                                       color: Colors.white,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
                   ),
                 ),
-
             const SizedBox(height: 20),
-
-            // Recent Shop Title
             const Padding(
               padding: EdgeInsets.only(left: 20.0),
               child: Text(
@@ -307,10 +304,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-
             const SizedBox(height: 12),
-
-            // Recent Shop (No filter here!)
             SizedBox(
               height: 130,
               child: ListView.builder(
