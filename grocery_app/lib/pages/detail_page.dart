@@ -12,6 +12,8 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  int quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
@@ -85,18 +87,80 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     const SizedBox(height: 10),
                     Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.orange,
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.orange,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              product.rate.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 6),
-                        Text(
-                          product.rate.toString(),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                if (quantity > 1) {
+                                  setState(() {
+                                    quantity--;
+                                  });
+                                }
+                              },
+                              icon: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color:
+                                      Colors.green.shade100,
+                                  borderRadius:
+                                      BorderRadius.circular(
+                                        10,
+                                      ),
+                                ),
+                                child: const Icon(
+                                  Icons
+                                      .remove_circle_outline,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              quantity.toString(),
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  quantity++;
+                                });
+                              },
+                              icon: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius:
+                                      BorderRadius.circular(
+                                        10,
+                                      ),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -133,7 +197,7 @@ class _DetailPageState extends State<DetailPage> {
                     MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${product.price.toStringAsFixed(2)}",
+                    "\$${(product.price * quantity).toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
