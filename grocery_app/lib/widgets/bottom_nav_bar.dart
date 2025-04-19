@@ -45,7 +45,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: '',
           ),
           const BottomNavigationBarItem(
-            icon: Icon(Icons.insert_chart),
+            icon: Icon(Icons.shopping_cart),
             label: '',
           ),
           BottomNavigationBarItem(

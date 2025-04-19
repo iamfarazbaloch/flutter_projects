@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MySearchField extends StatelessWidget {
-  const MySearchField({super.key});
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+
+  const MySearchField({
+    super.key,
+    required this.controller,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +26,10 @@ class MySearchField extends StatelessWidget {
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const TextField(
-                decoration: InputDecoration(
+              child: TextField(
+                controller: controller,
+                onChanged: onChanged,
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search),
                   border: InputBorder.none,
                   hintText: 'Search',
@@ -33,7 +42,7 @@ class MySearchField extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: Colors.grey[100],
               borderRadius: BorderRadius.circular(10),

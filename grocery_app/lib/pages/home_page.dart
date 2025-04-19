@@ -11,6 +11,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedCategoryIndex = 0;
+  String searchQuery = '';
+  TextEditingController searchController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +37,29 @@ class _HomePageState extends State<HomePage> {
                 )
                 .toList();
 
+    final filteredCategoryGroceries =
+        filteredGroceries
+            .where(
+              (item) => item.name.toLowerCase().contains(
+                searchQuery.toLowerCase(),
+              ),
+            )
+            .toList();
+
+    final filteredRecentItems =
+        groceryItems
+            .where(
+              (item) => item.name.toLowerCase().contains(
+                searchQuery.toLowerCase(),
+              ),
+            )
+            .toList();
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome section
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -72,11 +98,18 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
             const SizedBox(height: 12),
 
             // Search field
-            const MySearchField(),
+            MySearchField(
+              controller:
+                  searchController, // Use the controller here
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value;
+                });
+              },
+            ),
 
             const SizedBox(height: 12),
 
@@ -92,7 +125,6 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   final isSelected =
                       index == selectedCategoryIndex;
-
                   return GestureDetector(
                     onTap: () {
                       setState(() {
@@ -143,111 +175,131 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 16),
 
-            // Horizontal list of grocery items
-            SizedBox(
-              height: 280,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
-                itemCount: filteredGroceries.length,
-                itemBuilder: (context, index) {
-                  final item = filteredGroceries[index];
-                  return Container(
-                    width: 200,
-                    margin: const EdgeInsets.only(left: 16),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        8,
-                      ),
-                      color: Colors.grey.shade100,
+            // Filtered category items
+            filteredCategoryGroceries.isEmpty
+                ? const Center(
+                  child: Text('Items not found'),
+                )
+                : SizedBox(
+                  height: 280,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
                     ),
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 14),
-                        Image.asset(
-                          item.image,
-                          height: 120,
+                    itemCount:
+                        filteredCategoryGroceries.length,
+                    itemBuilder: (context, index) {
+                      final item =
+                          filteredCategoryGroceries[index];
+                      return Container(
+                        width: 200,
+                        margin: const EdgeInsets.only(
+                          left: 16,
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          item.name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(8),
+                          color: Colors.grey.shade100,
                         ),
-                        const SizedBox(height: 4),
-                        Row(
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .start,
-                                children: [
-                                  Text(
-                                    item.category,
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 15,
-                                      fontWeight:
-                                          FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Text(
-                                    "\$${item.price.toStringAsFixed(2)}",
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.green,
-                                      fontWeight:
-                                          FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            const SizedBox(height: 14),
+                            Image.asset(
+                              item.image,
+                              height: 120,
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(
-                                10,
+                            const SizedBox(height: 10),
+                            Text(
+                              item.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
-                              decoration: const BoxDecoration(
-                                color: Colors.orangeAccent,
-                                borderRadius:
-                                    BorderRadius.only(
-                                      topLeft:
-                                          Radius.circular(
-                                            10,
-                                          ),
-                                      bottomLeft:
-                                          Radius.circular(
-                                            10,
-                                          ),
-                                    ),
-                              ),
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: const Icon(
-                                  Icons.shopping_cart,
-                                  color: Colors.white,
+                              maxLines: 1,
+                              overflow:
+                                  TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment
+                                            .start,
+                                    children: [
+                                      Text(
+                                        item.category,
+                                        style:
+                                            const TextStyle(
+                                              color:
+                                                  Colors
+                                                      .grey,
+                                              fontSize: 15,
+                                              fontWeight:
+                                                  FontWeight
+                                                      .bold,
+                                            ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "\$${item.price.toStringAsFixed(2)}",
+                                        style:
+                                            const TextStyle(
+                                              fontSize: 18,
+                                              color:
+                                                  Colors
+                                                      .green,
+                                              fontWeight:
+                                                  FontWeight
+                                                      .bold,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
+                                Container(
+                                  padding:
+                                      const EdgeInsets.all(
+                                        10,
+                                      ),
+                                  decoration: const BoxDecoration(
+                                    color:
+                                        Colors.orangeAccent,
+                                    borderRadius:
+                                        BorderRadius.only(
+                                          topLeft:
+                                              Radius.circular(
+                                                10,
+                                              ),
+                                          bottomLeft:
+                                              Radius.circular(
+                                                10,
+                                              ),
+                                        ),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: const Icon(
+                                      Icons.shopping_cart,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
+                      );
+                    },
+                  ),
+                ),
 
             const SizedBox(height: 20),
 
@@ -266,79 +318,94 @@ class _HomePageState extends State<HomePage> {
 
             const SizedBox(height: 12),
 
-            // Recent items - horizontal list
-            SizedBox(
-              height: 130,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
-                itemCount: filteredGroceries.length,
-                itemBuilder: (context, index) {
-                  final item = filteredGroceries[index];
-                  return Container(
-                    width: 300,
-                    margin: const EdgeInsets.only(
-                      right: 16,
+            // Filtered recent items
+            filteredRecentItems.isEmpty
+                ? const Center(
+                  child: Text('Items not found'),
+                )
+                : SizedBox(
+                  height: 130,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
                     ),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(item.image, height: 60),
-                        const SizedBox(
-                          height: 8,
-                          width: 12,
+                    itemCount: filteredRecentItems.length,
+                    itemBuilder: (context, index) {
+                      final item =
+                          filteredRecentItems[index];
+                      return Container(
+                        width: 350,
+                        margin: const EdgeInsets.only(
+                          right: 16,
                         ),
-                        Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.center,
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius:
+                              BorderRadius.circular(10),
+                        ),
+                        child: Row(
                           children: [
-                            Text(
-                              item.name,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.circular(
+                                      10,
+                                    ),
                               ),
-                              maxLines: 1,
-                              overflow:
-                                  TextOverflow.ellipsis,
+                              child: Image.asset(
+                                item.image,
+                                height: 60,
+                              ),
                             ),
-
+                            const SizedBox(width: 12),
+                            Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.name,
+                                  style: const TextStyle(
+                                    fontWeight:
+                                        FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                  overflow:
+                                      TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  item.category,
+                                  style: const TextStyle(
+                                    fontWeight:
+                                        FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                  maxLines: 1,
+                                  overflow:
+                                      TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                            Spacer(),
                             Text(
-                              item.category,
+                              "\$${item.price.toStringAsFixed(2)}",
                               style: const TextStyle(
+                                fontSize: 22,
+                                color: Colors.green,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.grey,
                               ),
-                              maxLines: 1,
-                              overflow:
-                                  TextOverflow.ellipsis,
                             ),
                           ],
                         ),
-                        Spacer(),
-                        Text(
-                          "\$${item.price.toStringAsFixed(2)}",
-                          style: const TextStyle(
-                            fontSize: 22,
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
+                      );
+                    },
+                  ),
+                ),
           ],
         ),
       ),
