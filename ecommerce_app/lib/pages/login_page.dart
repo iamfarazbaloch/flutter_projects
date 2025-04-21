@@ -18,12 +18,24 @@ class _LoginPageState extends State<LoginPage> {
       TextEditingController();
   final TextEditingController passwordController =
       TextEditingController();
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  void _login() {
+    FocusScope.of(context).unfocus();
+    if (_formKey.currentState!.validate()) {
+      // Simulate login
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Logging in...')),
+      );
+    }
   }
 
   @override
@@ -34,70 +46,96 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.symmetric(
             horizontal: 16.0,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.asset(
-                  'assets/images/secure.png',
-                  height: 400,
-                ),
-              ),
-              const Gap(30),
-              MyTextField(
-                controller: emailController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
-              const Gap(20),
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
-              const Gap(40),
-              MyButton(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignUpPage(),
-                    ),
-                  );
-                  // Add login logic here
-                },
-                text: 'Login',
-                color: Colors.blue.shade800,
-              ),
-              const Gap(50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: SingleChildScrollView(
+            child: SizedBox(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Not a member?',
-                    style: TextStyle(
-                      color: Colors.grey[800],
-                      fontSize: 15,
+                  Center(
+                    child: Image.asset(
+                      'assets/images/secure.png',
+                      height: 400,
                     ),
                   ),
-                  const SizedBox(width: 5),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to sign-up page
-                    },
-                    child: Text(
-                      'Sign up',
-                      style: TextStyle(
-                        color: Colors.blue.shade800,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        letterSpacing: 1,
-                      ),
+                  const Gap(30),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        MyTextField(
+                          controller: emailController,
+                          hintText: 'Email',
+                          obscureText: false,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
+                          },
+                        ),
+                        const Gap(20),
+                        MyTextField(
+                          controller: passwordController,
+                          hintText: 'Password',
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
                     ),
+                  ),
+                  const Gap(40),
+                  MyButton(
+                    onTap: _login,
+                    text: 'Login',
+                    color: Colors.blue.shade800,
+                  ),
+                  const Gap(50),
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Not a member?',
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) =>
+                                      const SignUpPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: Colors.blue.shade800,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),

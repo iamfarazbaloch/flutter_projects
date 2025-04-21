@@ -4,17 +4,22 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final String? Function(String?)? validator;
+
   const MyTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
+      validator: validator,
+      obscureText: obscureText,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -36,7 +41,6 @@ class MyTextField extends StatelessWidget {
           color: Colors.grey.shade500,
         ),
       ),
-      obscureText: obscureText,
     );
   }
 }

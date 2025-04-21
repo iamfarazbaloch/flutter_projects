@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/pages/login_page.dart';
 import 'package:ecommerce_app/widgets/my_button.dart'
     show MyButton;
 import 'package:ecommerce_app/widgets/my_text_field.dart'
@@ -17,12 +18,47 @@ class _SignUpPageState extends State<SignUpPage> {
       TextEditingController();
   final TextEditingController passwordController =
       TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  void _signUp() {
+    FocusScope.of(context).unfocus(); // Hide keyboard
+    if (_formKey.currentState!.validate()) {
+      if (passwordController.text !=
+          confirmPasswordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Passwords do not match"),
+          ),
+        );
+        return;
+      }
+
+      // TODO: Add sign-up logic here
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Account created successfully"),
+        ),
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const LoginPage(),
+        ),
+      );
+    }
   }
 
   @override
@@ -34,15 +70,16 @@ class _SignUpPageState extends State<SignUpPage> {
             horizontal: 16.0,
           ),
           child: SingleChildScrollView(
-            child: SizedBox(
+            child: Form(
+              key: _formKey,
               child: Column(
                 crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    CrossAxisAlignment.center,
                 children: [
                   Center(
                     child: Image.asset(
                       'assets/images/secure.png',
-                      height: 400,
+                      height: 350,
                     ),
                   ),
                   const Gap(30),
@@ -50,24 +87,40 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: emailController,
                     hintText: 'Email',
                     obscureText: false,
-                  ),
-                  const Gap(20),
-                  MyTextField(
-                    controller: passwordController,
-                    hintText: 'Password',
-                    obscureText: true,
-                  ),
-                  const Gap(20),
-                  MyTextField(
-                    controller: passwordController,
-                    hintText: 'Password',
-                    obscureText: true,
-                  ),
-                  const Gap(40),
-                  MyButton(
-                    onTap: () {
-                      // Add signup logic here
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      return null;
                     },
+                  ),
+                  const Gap(20),
+                  MyTextField(
+                    controller: passwordController,
+                    hintText: 'Password',
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a password';
+                      }
+                      return null;
+                    },
+                  ),
+                  const Gap(20),
+                  MyTextField(
+                    controller: confirmPasswordController,
+                    hintText: 'Confirm Password',
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please confirm your password';
+                      }
+                      return null;
+                    },
+                  ),
+                  const Gap(30),
+                  MyButton(
+                    onTap: _signUp,
                     text: 'Sign up',
                     color: Colors.blue.shade800,
                   ),
@@ -86,7 +139,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       const SizedBox(width: 5),
                       GestureDetector(
                         onTap: () {
-                          // Navigate to sign-up page
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (_) => const LoginPage(),
+                            ),
+                          );
                         },
                         child: Text(
                           'Login',
@@ -100,6 +159,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
