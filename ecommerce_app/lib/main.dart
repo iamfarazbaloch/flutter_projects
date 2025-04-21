@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/pages/home_page.dart'
-    show HomePage;
+    show LoginPage;
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
