@@ -33,70 +33,76 @@ class _SignUpPageState extends State<SignUpPage> {
           padding: const EdgeInsets.symmetric(
             horizontal: 16.0,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.asset(
-                  'assets/images/secure.png',
-                  height: 400,
-                ),
-              ),
-              const Gap(30),
-              MyTextField(
-                controller: emailController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
-              const Gap(20),
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
-              const Gap(20),
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
-                obscureText: true,
-              ),
-              const Gap(40),
-              MyButton(
-                onTap: () {
-                  // Add login logic here
-                },
-                text: 'Sign up',
-                color: Colors.blue.shade800,
-              ),
-              const Gap(50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: SingleChildScrollView(
+            child: SizedBox(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Already have an account?',
-                    style: TextStyle(
-                      color: Colors.grey[800],
-                      fontSize: 15,
+                  Center(
+                    child: Image.asset(
+                      'assets/images/secure.png',
+                      height: 400,
                     ),
                   ),
-                  const SizedBox(width: 5),
-                  GestureDetector(
+                  const Gap(30),
+                  MyTextField(
+                    controller: emailController,
+                    hintText: 'Email',
+                    obscureText: false,
+                  ),
+                  const Gap(20),
+                  MyTextField(
+                    controller: passwordController,
+                    hintText: 'Password',
+                    obscureText: true,
+                  ),
+                  const Gap(20),
+                  MyTextField(
+                    controller: passwordController,
+                    hintText: 'Password',
+                    obscureText: true,
+                  ),
+                  const Gap(40),
+                  MyButton(
                     onTap: () {
-                      // Navigate to sign-up page
+                      // Add signup logic here
                     },
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.blue.shade800,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        letterSpacing: 1,
+                    text: 'Sign up',
+                    color: Colors.blue.shade800,
+                  ),
+                  const Gap(50),
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Already have an account?',
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 15,
+                        ),
                       ),
-                    ),
+                      const SizedBox(width: 5),
+                      GestureDetector(
+                        onTap: () {
+                          // Navigate to sign-up page
+                        },
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.blue.shade800,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
