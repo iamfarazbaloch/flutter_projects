@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   Center(
                     child: Image.asset(
                       'assets/images/secure.png',
-                      height: 400,
+                      height: 350,
                     ),
                   ),
                   const Gap(30),
@@ -94,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                   const Gap(40),
                   MyButton(
                     onTap: _login,
+
                     text: 'Login',
                     color: Colors.blue.shade800,
                   ),
