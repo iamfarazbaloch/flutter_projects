@@ -58,4 +58,8 @@ class AuthService {
       return 'An unexpected error occurred';
     }
   }
+
+  Future<void> logout() async {
+    await _firebaseAuth.signOut();
+  }
 }

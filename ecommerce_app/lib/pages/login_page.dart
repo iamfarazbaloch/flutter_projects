@@ -50,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
         const SnackBar(content: Text('Login successful')),
       );
 
-      // Navigate to home page here (replace with your actual home page)
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),
