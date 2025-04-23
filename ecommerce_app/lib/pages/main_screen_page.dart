@@ -31,11 +31,12 @@ class _MainScreenPageState extends State<MainScreenPage> {
         children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
         currentIndex: currentIndex,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black26,
+        unselectedItemColor: Colors.grey.shade300,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: (value) {
@@ -45,11 +46,11 @@ class _MainScreenPageState extends State<MainScreenPage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
+            icon: Icon(Iconsax.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Iconsax.search_normal_1),
+            icon: Icon(Iconsax.search_normal),
             label: 'Search',
           ),
           BottomNavigationBarItem(
