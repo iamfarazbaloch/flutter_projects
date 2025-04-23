@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/pages/main_page.dart';
+import 'package:ecommerce_app/pages/main_screen_page.dart';
 import 'package:ecommerce_app/pages/sign_up_page.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
 import 'package:ecommerce_app/widgets/my_button.dart';
@@ -52,7 +52,9 @@ class _LoginPageState extends State<LoginPage> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const MainPage()),
+        MaterialPageRoute(
+          builder: (_) => const MainScreenPage(),
+        ),
       );
     }
   }

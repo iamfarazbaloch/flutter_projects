@@ -1,30 +1,23 @@
 import 'package:ecommerce_app/pages/home_page.dart';
+import 'package:ecommerce_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class MainScreenPage extends StatefulWidget {
+  const MainScreenPage({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<MainScreenPage> createState() =>
+      _MainScreenPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  // void _logout() async {
-  //   await FirebaseAuth.instance.signOut();
-  //   if (!mounted) return;
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(builder: (_) => const LoginPage()),
-  //   );
-  // }
-
+class _MainScreenPageState extends State<MainScreenPage> {
   int currentIndex = 0;
 
   final List<Widget> pages = const [
     HomePage(),
     Center(child: Text('Cart')),
     Center(child: Text('Messages')),
-    Center(child: Text('Profile')),
+    ProfilePage(),
   ];
 
   @override
@@ -50,19 +43,19 @@ class _MainPageState extends State<MainPage> {
         items: [
           const BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded),
-            label: '',
+            label: 'Home',
           ),
           const BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: '',
+            icon: Icon(Icons.search),
+            label: 'Search',
           ),
           const BottomNavigationBarItem(
-            icon: Icon(Icons.mail_outline),
-            label: '',
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
-            label: '',
+            label: 'Profile',
           ),
         ],
       ),
