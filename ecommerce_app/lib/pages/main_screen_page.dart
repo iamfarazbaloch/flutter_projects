@@ -1,6 +1,9 @@
 import 'package:ecommerce_app/pages/home_page.dart';
+import 'package:ecommerce_app/pages/notification_page.dart';
 import 'package:ecommerce_app/pages/profile_page.dart';
+import 'package:ecommerce_app/pages/search_page.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class MainScreenPage extends StatefulWidget {
   const MainScreenPage({super.key});
@@ -15,17 +18,17 @@ class _MainScreenPageState extends State<MainScreenPage> {
 
   final List<Widget> pages = const [
     HomePage(),
-    Center(child: Text('Cart')),
-    Center(child: Text('Messages')),
+    SearchPage(),
+    NotificationPage(),
     ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: pages[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
@@ -40,20 +43,20 @@ class _MainScreenPageState extends State<MainScreenPage> {
             currentIndex = value;
           });
         },
-        items: [
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded),
             label: 'Home',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+          BottomNavigationBarItem(
+            icon: Icon(Iconsax.search_normal_1),
             label: 'Search',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+          BottomNavigationBarItem(
+            icon: Icon(Iconsax.notification),
             label: 'Notifications',
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             label: 'Profile',
           ),
