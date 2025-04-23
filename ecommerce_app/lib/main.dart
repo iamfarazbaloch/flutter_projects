@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/firebase_options.dart';
-
 import 'package:ecommerce_app/pages/login_page.dart';
 import 'package:ecommerce_app/pages/main_screen_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
