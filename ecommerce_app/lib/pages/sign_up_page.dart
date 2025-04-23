@@ -17,20 +17,16 @@ class _SignUpPageState extends State<SignUpPage> {
       TextEditingController();
   final TextEditingController passwordController =
       TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
   final TextEditingController nameController =
-      TextEditingController(); // Add name field
+      TextEditingController();
   final GlobalKey<FormState> _formKey =
       GlobalKey<FormState>();
-  final AuthService _authService =
-      AuthService(); // Firebase Auth service
+  final AuthService _authService = AuthService();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    confirmPasswordController.dispose();
     nameController.dispose();
     super.dispose();
   }
@@ -38,21 +34,13 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> _signUp() async {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
-      if (passwordController.text !=
-          confirmPasswordController.text) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Passwords do not match"),
-          ),
-        );
-        return;
-      }
-
       String? result = await _authService.signup(
-        name: nameController.text,
-        email: emailController.text,
-        password: passwordController.text,
+        name: nameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
+
+      if (!mounted) return;
 
       if (result != null) {
         ScaffoldMessenger.of(
@@ -100,50 +88,35 @@ class _SignUpPageState extends State<SignUpPage> {
                   const Gap(30),
                   MyTextField(
                     controller: nameController,
-                    hintText: 'Full Name',
+                    hintText: 'Name',
                     obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
+                    validator:
+                        (value) =>
+                            value == null || value.isEmpty
+                                ? 'Please enter your name'
+                                : null,
                   ),
                   const Gap(20),
                   MyTextField(
                     controller: emailController,
                     hintText: 'Email',
                     obscureText: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
+                    validator:
+                        (value) =>
+                            value == null || value.isEmpty
+                                ? 'Please enter your email'
+                                : null,
                   ),
                   const Gap(20),
                   MyTextField(
                     controller: passwordController,
                     hintText: 'Password',
                     obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a password';
-                      }
-                      return null;
-                    },
-                  ),
-                  const Gap(20),
-                  MyTextField(
-                    controller: confirmPasswordController,
-                    hintText: 'Confirm Password',
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please confirm your password';
-                      }
-                      return null;
-                    },
+                    validator:
+                        (value) =>
+                            value == null || value.isEmpty
+                                ? 'Please enter a password'
+                                : null,
                   ),
                   const Gap(30),
                   MyButton(

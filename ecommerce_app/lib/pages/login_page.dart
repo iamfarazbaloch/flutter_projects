@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/pages/home_page.dart';
 import 'package:ecommerce_app/pages/sign_up_page.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
 import 'package:ecommerce_app/widgets/my_button.dart';
@@ -36,6 +37,8 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text.trim(),
       );
 
+      if (!mounted) return;
+
       if (result != null) {
         ScaffoldMessenger.of(
           context,
@@ -47,7 +50,11 @@ class _LoginPageState extends State<LoginPage> {
         const SnackBar(content: Text('Login successful')),
       );
 
-      // Navigate to your home screen here
+      // Navigate to home page here (replace with your actual home page)
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
     }
   }
 
