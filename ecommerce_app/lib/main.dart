@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/firebase_options.dart';
-import 'package:ecommerce_app/pages/home_page.dart';
+
 import 'package:ecommerce_app/pages/login_page.dart';
+import 'package:ecommerce_app/pages/main_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home:
-          isLoggedIn ? const HomePage() : const LoginPage(),
+          isLoggedIn ? const MainPage() : const LoginPage(),
     );
   }
 }
