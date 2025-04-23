@@ -18,6 +18,7 @@ class AuthService {
                 email: email.trim(),
                 password: password.trim(),
               );
+
       await _firebaseFirestore
           .collection('users')
           .doc(userCredential.user!.uid)
@@ -25,10 +26,12 @@ class AuthService {
             'name': name.trim(),
             'email': email.trim(),
           });
+
       return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
     } catch (e) {
-      print(e);
-      return null;
+      return 'An unexpected error occurred';
     }
   }
 
@@ -42,17 +45,17 @@ class AuthService {
             email: email.trim(),
             password: password.trim(),
           );
+
       await _firebaseFirestore
           .collection('users')
           .doc(userCredential.user!.uid)
-          .set({
-            'email': email.trim(),
-            'password': password.trim(),
-          });
+          .get();
+
       return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
     } catch (e) {
-      print(e);
-      return null;
+      return 'An unexpected error occurred';
     }
   }
 }

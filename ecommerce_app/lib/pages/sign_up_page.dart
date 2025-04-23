@@ -1,10 +1,9 @@
 import 'package:ecommerce_app/pages/login_page.dart';
-import 'package:ecommerce_app/widgets/my_button.dart'
-    show MyButton;
-import 'package:ecommerce_app/widgets/my_text_field.dart'
-    show MyTextField;
+import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:ecommerce_app/widgets/my_button.dart';
+import 'package:ecommerce_app/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart' show Gap;
+import 'package:gap/gap.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -20,19 +19,24 @@ class _SignUpPageState extends State<SignUpPage> {
       TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  final TextEditingController nameController =
+      TextEditingController(); // Add name field
   final GlobalKey<FormState> _formKey =
       GlobalKey<FormState>();
+  final AuthService _authService =
+      AuthService(); // Firebase Auth service
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+    nameController.dispose();
     super.dispose();
   }
 
-  void _signUp() {
-    FocusScope.of(context).unfocus(); // Hide keyboard
+  Future<void> _signUp() async {
+    FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       if (passwordController.text !=
           confirmPasswordController.text) {
@@ -44,7 +48,18 @@ class _SignUpPageState extends State<SignUpPage> {
         return;
       }
 
-      // TODO: Add sign-up logic here
+      String? result = await _authService.signup(
+        name: nameController.text,
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      if (result != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(result)));
+        return;
+      }
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -83,6 +98,18 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   const Gap(30),
+                  MyTextField(
+                    controller: nameController,
+                    hintText: 'Full Name',
+                    obscureText: false,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const Gap(20),
                   MyTextField(
                     controller: emailController,
                     hintText: 'Email',
