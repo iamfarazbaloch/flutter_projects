@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -11,12 +10,12 @@ class MyShoppingCard extends StatelessWidget {
     return Container(
       color: Colors.grey.shade400,
       width: size.width,
-      height: size.height * 0.25,
+      height: size.height * 0.21,
 
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20.0),
+            padding: const EdgeInsets.only(left: 24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,17 +24,17 @@ class MyShoppingCard extends StatelessWidget {
                   'New Collection',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 22,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 12),
+
                 Row(
                   children: [
                     Text(
                       '20',
                       style: TextStyle(
-                        fontSize: 45,
+                        fontSize: 44,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -50,10 +49,16 @@ class MyShoppingCard extends StatelessWidget {
                   ],
                 ),
                 Gap(20),
-                MyButton(
-                  onTap: () {},
-                  text: 'Shop Now',
-                  color: Colors.black,
+                TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(),
+                  ),
+                  child: Text(
+                    'Shop Now',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -65,7 +70,7 @@ class MyShoppingCard extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Image.asset(
               'assets/images/girls.png',
-              height: 200,
+              height: 150,
               fit: BoxFit.contain,
             ),
           ),
