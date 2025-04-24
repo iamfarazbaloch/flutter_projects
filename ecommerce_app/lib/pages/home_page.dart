@@ -188,8 +188,8 @@ class _HomePageState extends State<HomePage> {
                               child: Icon(
                                 Icons
                                     .favorite_border_outlined,
-                                size: 20,
-                                color: Colors.black,
+                                size: 25,
+                                color: Colors.white,
                               ),
                             ),
                             ClipRRect(
