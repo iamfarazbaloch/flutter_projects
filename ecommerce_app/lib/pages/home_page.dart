@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: 350,
+                height: 300,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: curatedModel.fashion.length,
@@ -192,12 +192,10 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.white,
                               ),
                             ),
-                            ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(12),
+                            Center(
                               child: Image.asset(
                                 item.image,
-                                height: 180,
+                                height: 160,
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                               ),
@@ -219,11 +217,13 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   '\$${item.price}',
                                   style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 20,
                                     fontWeight:
                                         FontWeight.bold,
+                                    color: Colors.red,
                                   ),
                                 ),
+                                Spacer(),
 
                                 Icon(
                                   Icons.star,
@@ -232,15 +232,12 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   item.rating.toString(),
                                   style: TextStyle(
-                                    color:
-                                        Colors
-                                            .grey
-                                            .shade700,
+                                    color: Colors.black,
                                   ),
                                 ),
-                                Spacer(),
                               ],
                             ),
+                            Gap(10),
                             Text(
                               'Reviews: ${item.review.toStringAsFixed(0)} ',
                               style: TextStyle(
