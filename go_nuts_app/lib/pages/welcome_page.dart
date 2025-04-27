@@ -41,15 +41,6 @@ class WelcomePage extends StatelessWidget {
                         fontSize: 55,
                         color: Color(0xFFFF7074),
                         fontWeight: FontWeight.bold,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 5.0,
-                            color: Colors.black.withOpacity(
-                              0.3,
-                            ),
-                            offset: Offset(2.0, 2.0),
-                          ),
-                        ],
                       ),
                     ),
                     Gap(10),

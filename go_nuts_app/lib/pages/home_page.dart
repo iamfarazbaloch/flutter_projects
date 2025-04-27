@@ -57,11 +57,49 @@ class _HomePageState extends State<HomePage> {
                   Text('Order your favorite donuts here!'),
                   Gap(40),
                   Text(
-                    'Today offer',
+                    'Today Offers',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                       fontSize: 25.0,
+                    ),
+                  ),
+
+                  Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.only(
+                        left: 16.0,
+                        right: 16.0,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          width: 200.0,
+                          height: 200.0,
+                          margin: EdgeInsets.only(
+                            right: 16.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius:
+                                BorderRadius.circular(10),
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 10,
+                                top: 10,
+                                child: Image.asset(
+                                  'assets/products/strawberry.png',
+                                  width: 180.0,
+                                  height: 180.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
