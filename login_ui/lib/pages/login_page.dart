@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
+            horizontal: 20,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +61,8 @@ class _LoginPageState extends State<LoginPage> {
               _loginWithDivider(),
               const Gap(30),
               _loginOptions(),
-              const Gap(30),
+              const Gap(80),
+              _signupText(),
             ],
           ),
         ),
@@ -75,17 +77,17 @@ class _LoginPageState extends State<LoginPage> {
         const Text(
           'Welcome Back',
           style: TextStyle(
-            color: Colors.black,
             fontSize: 32,
             fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         const Gap(8),
         Text(
           'Sign in to continue',
           style: TextStyle(
-            color: Colors.grey.shade600,
             fontSize: 16,
+            color: Colors.grey.shade600,
           ),
         ),
       ],
@@ -132,8 +134,8 @@ class _LoginPageState extends State<LoginPage> {
       child: Text(
         'Forgot Password?',
         style: TextStyle(
-          color: Colors.blue.shade700,
           fontSize: 14,
+          color: Colors.blue.shade700,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -156,8 +158,8 @@ class _LoginPageState extends State<LoginPage> {
         child: const Text(
           'Login',
           style: TextStyle(
-            color: Colors.white,
             fontSize: 20,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             letterSpacing: 1,
           ),
@@ -171,24 +173,24 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         const Expanded(
           child: Divider(
-            thickness: 1,
             color: Colors.black26,
+            thickness: 1,
           ),
         ),
         const Gap(10),
         Text(
           'Or continue with',
           style: TextStyle(
-            color: Colors.grey.shade600,
             fontSize: 14,
+            color: Colors.grey.shade600,
             fontWeight: FontWeight.w500,
           ),
         ),
         const Gap(10),
         const Expanded(
           child: Divider(
-            thickness: 1,
             color: Colors.black26,
+            thickness: 1,
           ),
         ),
       ],
@@ -197,50 +199,66 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginOptions() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _socialLoginButton(
-          imagePath: 'assets/google.png',
-          backgroundColor: Colors.white,
-          borderColor: Colors.black12,
-        ),
+        _socialLoginButton(imagePath: 'assets/google.png'),
         const Gap(20),
         _socialLoginButton(
           imagePath: 'assets/facebook.png',
-          backgroundColor: Colors.white,
-          borderColor: Colors.black12,
         ),
       ],
     );
   }
 
-  Widget _socialLoginButton({
-    required String imagePath,
-    required Color backgroundColor,
-    required Color borderColor,
-  }) {
-    return Expanded(
-      child: Container(
-        height: 55,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(color: borderColor),
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 6,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Image.asset(
-            imagePath,
-            width: 28,
-            height: 28,
+  Widget _socialLoginButton({required String imagePath}) {
+    return Container(
+      width: 70,
+      height: 55,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.black12),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 5,
+            offset: Offset(0, 2),
           ),
+        ],
+      ),
+      child: Center(
+        child: Image.asset(
+          imagePath,
+          width: 28,
+          height: 28,
         ),
       ),
+    );
+  }
+
+  Widget _signupText() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          "Don't have an account? ",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.black54,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: Text(
+            'Sign Up',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.blue.shade700,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
