@@ -64,43 +64,87 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 25.0,
                     ),
                   ),
-
-                  Expanded(
-                    child: ListView(
-                      padding: EdgeInsets.only(
-                        left: 16.0,
-                        right: 16.0,
-                      ),
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Container(
-                          width: 200.0,
-                          height: 200.0,
-                          margin: EdgeInsets.only(
-                            right: 16.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius:
-                                BorderRadius.circular(10),
-                          ),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 10,
-                                top: 10,
-                                child: Image.asset(
-                                  'assets/products/strawberry.png',
-                                  width: 180.0,
-                                  height: 180.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ],
-                          ),
+                ],
+              ),
+            ),
+            Container(
+              width: 200,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(
+                          16.0,
                         ),
-                      ],
+                      ),
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: Colors.pink,
+                      ),
                     ),
+                  ),
+                  const SizedBox(height: 8),
+                  Positioned(
+                    left: 0,
+                    top: 20,
+                    child: Image.asset(
+                      'assets/products/strawberry.png',
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Strawberry Wheel',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'These baked strawberry donuts are filled with fresh strawberries.',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Gap(10),
+
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.end,
+                    children: [
+                      const Text(
+                        '\$20',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                          decoration:
+                              TextDecoration.lineThrough,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        '\$16',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
