@@ -13,9 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Go Nuts',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFFFED8DF),
-      ),
+
       home: const WelcomePage(),
     );
   }
