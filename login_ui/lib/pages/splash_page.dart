@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -81,16 +82,75 @@ class _SplashPageState extends State<SplashPage> {
               child: Column(
                 children: [
                   Text(
-                    "Find the students that fits your knowledge and interests",
+                    "Find the students that fits your knowledge..",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                      color: Colors.black,
                     ),
+                  ),
+                  Gap(20),
+                  Text(
+                    "Ut enim ad mi nisi ut aliquip ex ea commodo consequat. velit esse cillum dolore eu fugiat.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Spacer(),
+                  _button(
+                    () {},
+                    'Sign Up',
+                    Colors.blue.shade900,
+                    Colors.white,
+                    context,
+                  ),
+                  _button(
+                    () {},
+                    'Login',
+                    Colors.grey.shade200,
+                    Colors.blue.shade800,
+                    context,
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _button(
+    void Function()? onTap,
+    String text,
+    Color color,
+    Color textColor,
+    BuildContext context,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.all(10),
+        alignment: Alignment.center,
+        height: 60,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: textColor,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+          ),
         ),
       ),
     );
