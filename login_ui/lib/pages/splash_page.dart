@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:login_ui/pages/login_page.dart';
+import 'package:login_ui/pages/sign_up_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -11,24 +13,24 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildSplashScreen(context));
+    return Scaffold(body: _buildSplashScreen());
   }
 
-  Widget _buildSplashScreen(BuildContext context) {
+  Widget _buildSplashScreen() {
     return Stack(
-      children: [_background(context), _logo(context)],
+      children: [_background(), _logoAndContent()],
     );
   }
 
-  Widget _background(BuildContext context) {
+  Widget _background() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color.fromARGB(255, 7, 25, 122),
-            const Color.fromARGB(255, 149, 196, 224),
+            Color.fromARGB(255, 7, 25, 122),
+            Color.fromARGB(255, 149, 196, 224),
           ],
           stops: [0.38, 0.4],
         ),
@@ -36,106 +38,116 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  Widget _logo(BuildContext context) {
+  Widget _logoAndContent() {
     return SafeArea(
-      child: SizedBox(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 40.0,
-                left: 40.0,
-                bottom: 20.0,
-                right: 40.0,
-              ),
-              child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Image.asset(
-                    'assets/welcome.png',
-                    height: 300,
-                  ),
-                ),
-              ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 40.0,
+              vertical: 40.0,
             ),
-            Container(
-              margin: const EdgeInsets.only(
-                top: 20.0,
-                left: 30.0,
-                right: 30.0,
-              ),
-              height: 400,
-              width: double.infinity,
+            child: Container(
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-              ),
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Text(
-                    "Find the students that fits your knowledge..",
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Gap(20),
-                  Text(
-                    "Ut enim ad mi nisi ut aliquip ex ea commodo consequat. velit esse cillum dolore eu fugiat.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Spacer(),
-                  _button(
-                    () {},
-                    'Sign Up',
-                    Colors.blue.shade900,
-                    Colors.white,
-                    context,
-                  ),
-                  _button(
-                    () {},
-                    'Login',
-                    Colors.grey.shade200,
-                    Colors.blue.shade800,
-                    context,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
                   ),
                 ],
               ),
+              child: Center(
+                child: Image.asset(
+                  'assets/welcome.png',
+                  height: 300,
+                ),
+              ),
             ),
-          ],
-        ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 30,
+            ),
+            padding: const EdgeInsets.all(20),
+            height: 400,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              children: [
+                const Text(
+                  "Find the students that fits your knowledge..",
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const Gap(20),
+                const Text(
+                  "Ut enim ad mi nisi ut aliquip ex ea commodo consequat. velit esse cillum dolore eu fugiat.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black54,
+                  ),
+                ),
+                const Spacer(),
+                _button(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => const SignUpPage(),
+                      ),
+                    );
+                  },
+                  text: 'Sign Up',
+                  color: Colors.blue.shade900,
+                  textColor: Colors.white,
+                ),
+                _button(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => const LoginPage(),
+                      ),
+                    );
+                  },
+                  text: 'Login',
+                  color: Colors.grey.shade200,
+                  textColor: Colors.blue.shade800,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _button(
-    void Function()? onTap,
-    String text,
-    Color color,
-    Color textColor,
-    BuildContext context,
-  ) {
+  Widget _button({
+    required void Function()? onTap,
+    required String text,
+    required Color color,
+    required Color textColor,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(vertical: 8),
         alignment: Alignment.center,
         height: 60,
         width: double.infinity,
