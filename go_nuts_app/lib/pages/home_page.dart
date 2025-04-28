@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_nuts_app/widgets/today_offer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment:
                     MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Let's Gonuts!",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -35,12 +36,12 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: Color(0xFFFED8DF),
+                      color: const Color(0xFFFED8DF),
                       borderRadius: BorderRadius.circular(
                         10.0,
                       ),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.search_rounded,
                       color: Color(0xFFFF7074),
                     ),
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment:
                     CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Text('Order your favorite donuts here!'),
                   Gap(40),
                   Text(
@@ -67,84 +68,26 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Container(
-              width: 200,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(
-                          16.0,
-                        ),
-                      ),
-                      child: Icon(
-                        Icons.favorite_border,
-                        color: Colors.pink,
-                      ),
-                    ),
+            const Gap(20),
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: const [
+                  TodayOffer(
+                    title: 'Strawberry Wheel',
+                    description:
+                        'These Baked Strawberry Donuts are filled with fresh strawberries...',
+                    price: '\$9.99',
+                    imagePath:
+                        'assets/products/strawberry.png',
                   ),
-                  const SizedBox(height: 8),
-                  Positioned(
-                    left: 0,
-                    top: 20,
-                    child: Image.asset(
-                      'assets/products/strawberry.png',
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Strawberry Wheel',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    'These baked strawberry donuts are filled with fresh strawberries.',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Gap(10),
-
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.end,
-                    children: [
-                      const Text(
-                        '\$20',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                          decoration:
-                              TextDecoration.lineThrough,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Text(
-                        '\$16',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
+                  TodayOffer(
+                    title: 'Chocolate Glaze',
+                    description:
+                        'Delicious chocolate glazed donuts perfect for your sweet tooth!',
+                    price: '\$8.49',
+                    imagePath:
+                        'assets/products/chocolate.png',
                   ),
                 ],
               ),
