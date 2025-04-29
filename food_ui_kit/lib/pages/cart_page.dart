@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:food_ui_kit/pages/home_page.dart';
-import 'package:gap/gap.dart';
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+class CartPage extends StatefulWidget {
+  const CartPage({super.key});
 
   @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  State<CartPage> createState() => _CartPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> {
+class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +15,15 @@ class _HistoryPageState extends State<HistoryPage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        leading: Icon(Icons.arrow_back_ios),
-        title: const Text('History'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(
+              context,
+            ); // Pops the current screen
+          },
+        ),
+        title: const Text('Orders'),
       ),
       body: Column(
         children: [
@@ -30,8 +35,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 crossAxisAlignment:
                     CrossAxisAlignment.center,
                 children: [
-                  Image.asset('assets/icons/history.png'),
-                  Gap(20),
+                  Image.asset('assets/icons/bcart.png'),
                   Text(
                     'No orders yet',
                     style: TextStyle(
@@ -67,13 +71,13 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget _button() {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.all(20),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: const Color(0xFFFA4A0C),
         borderRadius: BorderRadius.circular(40),
       ),
-      child: Text(
+      child: const Text(
         'Start Ordering',
         textAlign: TextAlign.center,
         style: TextStyle(
